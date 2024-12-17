@@ -29,8 +29,16 @@ function exibir (){
     tabela += '<tr>'
 
     for(let j = 0; j <3; j++){
+       
+        switch(tabuleiro[i][j]){
+            case - 1: marcador = 'X'; break;
+            case 1: marcador = 'O'; break;
+            default: marcador = '_'
+        }
 
-    tabela += '<td>_</td>'
+
+
+    tabela += '<td>' + marcador + '</td>'
     
     }
     
@@ -44,26 +52,56 @@ function exibir (){
     
 }
 
-function jogar (){
-    aviso.innerHTML = 'Vez do jogaddor: ' + numeroJogador
+function jogar(){
+    aviso.innerHTML = 'Vez do jogador: ' + numeroJogador()
 
 
     linha = document.getElementById('linha').value - 1
     coluna = document.getElementById('coluna').value - 1
 
     if(tabuleiro [linha][coluna] == 0){
-        tabuleiro [linha][coluna] == numeroJogador() == 1 ? 1 : -1
+        tabuleiro [linha][coluna] = numeroJogador() == 1 ? 1 : -1
+    } else {
+        aviso.innerHTML = 'Esse campo já foi marcado'
     }
 
     
     console.table(tabuleiro)
     jogador++
+    exibir()
+    checar()
     
 }
 
 function checar (){
+
+    for(let i = 0; i < 3; i++){
+        let soma = 0
+        soma = tabuleiro[i][0] + tabuleiro[i][1] + tabuleiro[i][2]
+
+        if(soma == 3 || soma == -3 ){
+            aviso.innerHTML = 'o Jogador ' + numeroJogador() + ' Ganhou!'
+        }
+    }
+
+    for(let i = 0; i < 3; i++){
+        let soma = 0
+        soma = tabuleiro[0][i] + tabuleiro[1][i] + tabuleiro[2][i]
+
+        if(soma == 3 || soma == -3 ){
+            aviso.innerHTML = 'o Jogador ' + numeroJogador() + 'Ganhou!'
+        }
+    }
+
+        let soma = 0
+        soma = tabuleiro[0][0] + tabuleiro[1][1] + tabuleiro[2][2]
+
+        if(soma == 3 || soma == -3 ){
+            aviso.innerHTML = 'o Jogador ' + numeroJogador() + 'Ganhou!'
+        }
+    }
     
-}
+
 
 function numeroJogador(){
     return jogador%2 + 1
